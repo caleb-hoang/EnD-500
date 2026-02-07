@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/caleb-hoang/EnD-500/issues"
   },
-  "homepage": "https://github.com/caleb-hoang/EnD-500#readme"
+  "homepage": "https://github.com/caleb-hoang/EnD-500#readme",
+  "dependencies": {
+    "discord.js": "^14.25.1"
+  }
 }

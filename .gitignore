@@ -1,0 +1,4 @@
+# Ignore config file and node modules
+config.json
+node_modules
+.env
