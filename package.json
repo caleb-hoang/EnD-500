@@ -1,0 +1,21 @@
+{
+  "name": "end-500",
+  "version": "1.0.0",
+  "description": "A discord-based API that allows players to submit their UID and personal Elastic Goods prices to optimize Stock Distribution in the game \"Arknights: Endfield\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caleb-hoang/EnD-500.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/caleb-hoang/EnD-500/issues"
+  },
+  "homepage": "https://github.com/caleb-hoang/EnD-500#readme"
+}
