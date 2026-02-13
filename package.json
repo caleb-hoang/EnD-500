@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/caleb-hoang/EnD-500#readme",
   "dependencies": {
-    "discord.js": "^14.25.1"
+    "discord.js": "^14.25.1",
+    "mongodb": "^7.1.0"
   }
 }
