@@ -5,7 +5,6 @@ const { databaseConnect } = require('../../config.json');
 module.exports = {
 	data: new SlashCommandBuilder().setName('testquery').setDescription('Tests a MongoDB query!'),
 	async execute(interaction) {
-        console.log(databaseConnect);
         const client = new MongoClient(databaseConnect);
         let reply = null;
         try {
@@ -15,8 +14,6 @@ module.exports = {
             // Queries for a movie that has a title value of 'Back to the Future'
             const query = { title: 'Back to the Future' };
             const movie = await movies.findOne(query);
-
-            console.log(movie);
             reply = movie.plot;
         } catch (error) {
             console.log(error);
