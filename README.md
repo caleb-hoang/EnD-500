@@ -1,5 +1,5 @@
 # E&D-500
-A Discord-based API that allows players to submit their UID and personal Elastic Goods prices to optimize Stock Distribution in the game "Arknights: Endfield." Currently includes funcionality for UID registration.
+A Discord bot that allows players to submit their UID, AIC blueprints, and personal Elastic Goods prices to optimize Stock Distribution in the game "Arknights: Endfield." Currently includes funcionality for UID registration.
 
 ## TO RUN:
 
@@ -7,7 +7,7 @@ Create a Discord Developer profile at the [Discord Developer Portal](https://dis
 
 Invite and add the application to a Discord server of choice.
 
-Create a file named "config.json" in the main directory with three entries: token (obtained from the "bot" section of the developer portal), clientId (from the generational information section of the portal), and guildId (a Discord server's unique identifier, obtained by activating developer mode).
+Create a file named "config.json" in the main directory with three entries: token (obtained from the "bot" section of the developer portal), clientId (from the generational information section of the portal), guildId (a Discord server's unique identifier, obtained by activating developer mode), and databaseConnect (A MongoDB Atlas' connection string, including a user password.) 
 
 Run `npm install`.
 
