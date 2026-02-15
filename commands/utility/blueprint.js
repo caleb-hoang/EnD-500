@@ -38,7 +38,7 @@ module.exports = {
       const database = client.db('TA-TA');
       const collection = database.collection('Blueprints');
       // Check existence by code exclusively
-      const existing = await collection.findOne({ code: code });
+      const existing = await collection.findOne({ code: code , region: region});
       if (existing) {
         exists = true;
       } else {
@@ -59,7 +59,7 @@ module.exports = {
 
     const regionDisplay = region === 'asia' ? 'Asia' : region === 'china' ? 'China' : 'NA/EU';
     if (exists) {
-      await interaction.reply(`Blueprint with code '${code}' already exists.`);
+      await interaction.reply(`Blueprint with code '${code}' already exists in region ${regionDisplay}.`);
     } else {
       await interaction.reply(`Blueprint '${name}' submitted for region ${regionDisplay} with code: ${code}`);
     }
