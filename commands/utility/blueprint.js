@@ -14,7 +14,7 @@ module.exports = {
         .setName('region')
         .setDescription('The region your blueprint is valid for')
         .setRequired(true)
-        .addChoices({ name: 'Asia', value: 'asia' }, { name: 'NA/EU', value: 'naeu' })
+        .addChoices({ name: 'Asia', value: 'asia' }, { name: 'China', value: 'china' }, { name: 'NA/EU', value: 'naeu' })
     )
     .addStringOption((option) =>
       option.setName('code').setDescription('Alphanumeric blueprint code (20-25 chars)').setRequired(true)
@@ -37,8 +37,8 @@ module.exports = {
     try {
       const database = client.db('TA-TA');
       const collection = database.collection('Blueprints');
-      const query = { id: interaction.user.id, blueprint_name: name };
-      const existing = await collection.findOne(query);
+      // Check existence by code exclusively
+      const existing = await collection.findOne({ code: code });
       if (existing) {
         exists = true;
       } else {
@@ -47,8 +47,7 @@ module.exports = {
           name: interaction.user.username,
           blueprint_name: name,
           code: code,
-          region: region,
-          score: 0
+          region: region
         };
         await collection.insertOne(doc);
       }
@@ -58,9 +57,9 @@ module.exports = {
       await client.close();
     }
 
-    const regionDisplay = region === 'asia' ? 'Asia' : 'NA/EU';
+    const regionDisplay = region === 'asia' ? 'Asia' : region === 'china' ? 'China' : 'NA/EU';
     if (exists) {
-      await interaction.reply(`Blueprint '${name}' already exists for region ${regionDisplay}.`);
+      await interaction.reply(`Blueprint with code '${code}' already exists.`);
     } else {
       await interaction.reply(`Blueprint '${name}' submitted for region ${regionDisplay} with code: ${code}`);
     }

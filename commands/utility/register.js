@@ -3,10 +3,10 @@ const { MongoClient } = require('mongodb');
 const { databaseConnect } = require('../../config.json');
 
 module.exports = {
-	data: new SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName('register')
     .setDescription('Set your Endfield UID and region!')
-    .addStringOption((option) => option.setName('region').setDescription('The region your UID is assigned to').setRequired(true).addChoices({name: 'Asia', value: 'asia'}, {name:'NA/EU', value:'naeu'}))
+    .addStringOption((option) => option.setName('region').setDescription('The region your UID is assigned to').setRequired(true).addChoices({name: 'Asia', value: 'asia'}, {name:'China', value:'china'}, {name:'NA/EU', value:'naeu'}))
     .addIntegerOption((option) => option.setName('uid').setDescription('Your UID!').setRequired(true).setMaxValue(999999999))
     ,
 	async execute(interaction) {
@@ -21,6 +21,8 @@ module.exports = {
             let update;
             if (region === "asia") {
                 update = {$set: {name: interaction.user.username, uid_a:uid}};
+            } else if (region === "china") {
+                update = {$set: {name: interaction.user.username, uid_c:uid}};
             } else {
                 update = {$set: {name: interaction.user.username, uid_n:uid}};
             }
@@ -32,10 +34,7 @@ module.exports = {
         } finally {
             await client.close();
         }
-        if (region === 'asia') {
-		    await interaction.reply('Registered Asia UID as: ' + uid);
-        } else {
-            await interaction.reply('Registered NA/EU UID as: ' + uid);
-        }
+        const regionName = region === 'asia' ? 'Asia' : region === 'china' ? 'China' : 'NA/EU';
+        await interaction.reply('Registered ' + regionName + ' UID as: ' + uid);
 	},
 };
