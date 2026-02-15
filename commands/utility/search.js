@@ -2,6 +2,12 @@ const { SlashCommandBuilder } = require('discord.js');
 const { MongoClient } = require('mongodb');
 const { databaseConnect } = require('../../config.json');
 
+// Basic input sanitizer for MongoDB safety
+function sanitizeString(s) {
+  if (typeof s !== 'string') return '';
+  return s.trim().replace(/\$/g, '').replace(/\0/g, '');
+}
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('search')
@@ -18,8 +24,10 @@ module.exports = {
     ),
   async execute(interaction) {
     const client = new MongoClient(databaseConnect);
-    const nameQuery = interaction.options.getString('name');
-    const regionQuery = interaction.options.getString('region');
+    const nameQueryRaw = interaction.options.getString('name');
+    const regionQueryRaw = interaction.options.getString('region');
+    const nameQuery = sanitizeString(nameQueryRaw);
+    const regionQuery = sanitizeString(regionQueryRaw);
     // similarity helper
     function levenshtein(a, b) {
       const m = a.length;
@@ -38,7 +46,8 @@ module.exports = {
     try {
       const database = client.db('TA-TA');
       const collection = database.collection('Blueprints');
-      const results = await collection.find({ blueprint_name: { $regex: nameQuery, $options: 'i' }, region: regionQuery }).toArray();
+      const escapedQuery = nameQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const results = await collection.find({ blueprint_name: { $regex: escapedQuery, $options: 'i' }, region: regionQuery }).toArray();
       if (!results || results.length === 0) {
         const regionDisplay = regionQuery === 'asia' ? 'Asia' : regionQuery === 'china' ? 'China' : 'NA/EU';
         await interaction.reply(`No blueprints found with name '${nameQuery}' in region ${regionDisplay}.`);

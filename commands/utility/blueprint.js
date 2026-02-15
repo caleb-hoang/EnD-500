@@ -2,6 +2,12 @@ const { SlashCommandBuilder } = require('discord.js');
 const { MongoClient } = require('mongodb');
 const { databaseConnect } = require('../../config.json');
 
+// Simple input sanitizers to protect MongoDB interactions
+function sanitizeString(s) {
+  if (typeof s !== 'string') return '';
+  return s.trim().replace(/\$/g, '').replace(/\0/g, '');
+}
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('blueprint')
@@ -21,9 +27,12 @@ module.exports = {
     ),
   async execute(interaction) {
     const client = new MongoClient(databaseConnect);
-    const region = interaction.options.getString('region');
-    const code = interaction.options.getString('code');
-    const name = interaction.options.getString('name');
+    const regionRaw = interaction.options.getString('region');
+    const codeRaw = interaction.options.getString('code');
+    const nameRaw = interaction.options.getString('name');
+    const region = sanitizeString(regionRaw);
+    const code = (codeRaw || '').trim().replace(/\s+/g, '');
+    const name = sanitizeString(nameRaw);
 
     // Validate code: 20-25 alphanumeric
     const alnumRegex = /^[A-Za-z0-9]{20,25}$/;
@@ -37,7 +46,7 @@ module.exports = {
     try {
       const database = client.db('TA-TA');
       const collection = database.collection('Blueprints');
-      // Check existence by code exclusively
+      // Check existence by code exclusively within the same region
       const existing = await collection.findOne({ code: code , region: region});
       if (existing) {
         exists = true;
@@ -57,7 +66,7 @@ module.exports = {
       await client.close();
     }
 
-    const regionDisplay = region === 'asia' ? 'Asia' : region === 'china' ? 'China' : 'NA/EU';
+      const regionDisplay = region === 'asia' ? 'Asia' : region === 'china' ? 'China' : 'NA/EU';
     if (exists) {
       await interaction.reply(`Blueprint with code '${code}' already exists in region ${regionDisplay}.`);
     } else {
