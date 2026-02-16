@@ -1,4 +1,4 @@
-# E&D-500
+# TA-TA Bot
 A Discord bot that allows players to submit their UID, AIC blueprints, and personal Elastic Goods prices to optimize Stock Distribution in the game "Arknights: Endfield." Currently includes functionality for UID registration and blueprint post/searching.
 
 ## TO RUN:
