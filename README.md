@@ -1,5 +1,5 @@
 # E&D-500
-A Discord bot that allows players to submit their UID, AIC blueprints, and personal Elastic Goods prices to optimize Stock Distribution in the game "Arknights: Endfield." Currently includes funcionality for UID registration.
+A Discord bot that allows players to submit their UID, AIC blueprints, and personal Elastic Goods prices to optimize Stock Distribution in the game "Arknights: Endfield." Currently includes functionality for UID registration and blueprint post/searching.
 
 ## TO RUN:
 
