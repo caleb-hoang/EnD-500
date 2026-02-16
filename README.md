@@ -14,3 +14,14 @@ Run `npm install`.
 To activate the bot, run `node index.js`
 
 The bot is now active, and users can now run commands via the chat box.
+
+## CHAT COMMANDS
+
+### User
+- Returns the user's name and registered UIDs in all regions they have registered.
+
+### Register
+- Requires user to submit the region of choice (NA/EU, Asia, China) and their corresponding UID.
+- Attaches the user's UID to their Discord account for ease of access using /user
+
+###
