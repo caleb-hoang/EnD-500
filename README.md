@@ -24,4 +24,10 @@ The bot is now active, and users can now run commands via the chat box.
 - Requires user to submit the region of choice (NA/EU, Asia, China) and their corresponding UID.
 - Attaches the user's UID to their Discord account for ease of access using /user
 
-###
+### Blueprint
+- Requires user to submit the region of choice (NA/EU, Asia, China), the name of the blueprint, and the corresponding blueprint code.
+- Posts the blueprint, and makes it searchable by all users.
+
+### Search
+- Requires user to submit the region of choice (NA/EU, Asia, China), and the name of the blueprint.
+- Returns a single blueprint with the closest name to the search query.
